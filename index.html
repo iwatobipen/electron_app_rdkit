@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Electron chemoinfo</title>
+
+<script src="https://unpkg.com/@rdkit/rdkit/Code/MinimalLib/dist/RDKit_minimal.js"></script>
+<script>
+        window.initRDKitModule()
+            .then(function(RDKit) {
+                console.log("RDKit version: " + RDKit.version());
+                window.RDKit = RDKit;
+                /**
+                 * The RDKit module is now loaded.
+                 * You can use it anywhere.
+                 */
+            })
+            .catch(() => {
+                // handle loading errors here...
+            });
+</script>
+<script> var drawmol = function() {
+    var smi = document.getElementById('smi').value;
+    console.log( smi );
+var mol = RDKit.get_mol( smi );
+var svg = mol.get_svg();
+    document.getElementById("drawer").innerHTML = svg;         
+};
+</script>
+
+
+
+</head>
+<body>
+<h1>Hello, electron!</h1>
+  <body>
+    <h1>Smiles parser</h1>
+    <p>This is simple smiles converter using RDKit js.</p>
+    <p>Input smiles to text box and push the button.</p>
+    <input id='smi' type='text' ><br>
+    <button type='button' onclick='drawmol()' >draw</button><br>
+ 
+    <div id='drawer'></div>
+  </body>
+</body>
+</html>
